@@ -66,6 +66,13 @@ func (boot *Bootup) RegisterRoutes() {
 				})
 			})
 
+			productHandler := api.ProductHandler{Handler: handlerType}
+			r.Route("/product", func(r chi.Router) {
+				r.Group(func(r chi.Router) {
+					r.Get("/", productHandler.GetAllHandler)
+					r.Get("/id/{id}", productHandler.GetByIDHandler)
+				})
+			})
 		})
 	})
 }
